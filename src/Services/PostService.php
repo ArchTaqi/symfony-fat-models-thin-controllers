@@ -4,7 +4,6 @@ namespace App\Services;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Doctrine\ORM\EntityManager;
 use App\Entity\Manager\PostManager;
 use App\Entity\Post;
 
@@ -32,17 +31,15 @@ class PostService
     protected $container;
 
     /**
-     * SubscriberManager constructor.
-     * @param EntityManager $entityManager
+     * PostService constructor.
+     * @param PostManager $postManager
      * @param $eventDispatcher
-     * @param $container
      * @param $validator
      */
-    public function __construct(PostManager $postManager, $eventDispatcher, $container, $validator)
+    public function __construct(PostManager $postManager, $eventDispatcher, $validator)
     {
-        $this->postManager              = $postManager;
+        $this->postManager = $postManager;
         $this->eventDispatcher = $eventDispatcher;
-        $this->container       = $container;
         $this->validator = $validator;
     }
 

@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,22 +54,6 @@ class PostController extends OurAbstractController
     }
 
     /**
-     * @param Post $entity
-     */
-    public function readAction(Post $entity)
-    {
-    }
-
-    public function listAction(array $filters = [])
-    {
-    }
-
-    /**
-     * @param Post $entity
-     * @return Response
-     */
-
-    /**
      * @param Post $post
      * @return JsonResponse
      * @Route("/post/{id}", name="_post_delete", methods={"DELETE"})
@@ -82,6 +65,17 @@ class PostController extends OurAbstractController
         $this->deleteResource($post);
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @param Post $entity
+     */
+    public function readAction(Post $entity)
+    {
+    }
+
+    public function listAction(array $filters = [])
+    {
     }
 
 

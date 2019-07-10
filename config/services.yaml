@@ -25,3 +25,25 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+
+    app.post.manager:
+        class: App\Entity\Manager\PostManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+
+    app.service.post:
+        class: App\Services\PostService
+        autowire: false
+        arguments: ['@app.post.manager', '@event_dispatcher', '@validator']
+
+
+    app.event_listener.post:
+        class: App\EventListener\PostListener
+        autowire: false
+        tags:
+            - { name: kernel.event_listener, event: okApp.pre_validate, method: preValidate }
+            - { name: kernel.event_listener, event: okApp.pre_flush, method: onPreFlush }
+            - { name: kernel.event_listener, event: okApp.post_flush, method: onPostFlush }
+        arguments: ['@app.service.post']
